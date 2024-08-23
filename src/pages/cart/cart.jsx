@@ -25,15 +25,15 @@ export function CartPage() {
 
 
 
-    const handleJoinCourse = (course) => {
-        dispatch(joinCourse(course))
-        dispatch(removeFromCart(course.id));
-        Swal.fire({
-            title: "Good job!",
-            text: "You Joined The Course!",
-            icon: "success"
-        });
-    }
+    // const handleJoinCourse = (course) => {
+    //     dispatch(joinCourse(course))
+    //     dispatch(removeFromCart(course.id));
+    //     Swal.fire({
+    //         title: "Good job!",
+    //         text: "You Joined The Course!",
+    //         icon: "success"
+    //     });
+    // }
 
     return (
         <div className="container mt-3">
