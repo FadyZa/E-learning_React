@@ -123,10 +123,7 @@ export function HomePage() {
             key={coures.id}
           >
             <CardCourseComponent
-              img={"http://localhost:4000/images/" + coures.url}
-              title={coures.title}
-              url={`/details/${coures.id}`}
-              price={coures.price}
+              course={coures}
             />
           </div>
         ))}
