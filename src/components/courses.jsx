@@ -50,13 +50,6 @@ export default function Courses() {
         dispatch(addToWishlist(product));
     }
 
-    // const isInWish = (id) => {
-    //     const isFound = wishCourses.find((course) => course.id == id);
-    // }
-
-    // /////////////////////////////////////
-
-
     return (
         <div className="container my-2">
             <div className="row gap-3 justify-content-center align-items-center">
@@ -99,5 +92,12 @@ export default function Courses() {
 
                 )}
             </div>
-            );
+        </div>
+    )
+
+
+    // const isInWish = (id) => {
+    //     const isFound = wishCourses.find((course) => course.id == id);
+    // }
+
 }

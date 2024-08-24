@@ -11,29 +11,25 @@ import { Btn } from "../../components/btn";
 
 export function CartPage() {
 
-
-    // const [products, setProducst] = useState([]);
-
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.cartItems);
-
     const totalPrice = cartItems.reduce((acc, product) => {
-        acc += product.price_detail.amount
+        acc += Number(product.price)
         return acc;
     }, 0)
 
 
 
 
-    // const handleJoinCourse = (course) => {
-    //     dispatch(joinCourse(course))
-    //     dispatch(removeFromCart(course.id));
-    //     Swal.fire({
-    //         title: "Good job!",
-    //         text: "You Joined The Course!",
-    //         icon: "success"
-    //     });
-    // }
+    const handleJoinCourse = (course) => {
+        dispatch(joinCourse(course))
+        dispatch(removeFromCart(course.id));
+        Swal.fire({
+            title: "Good job!",
+            text: "You Joined The Course!",
+            icon: "success"
+        });
+    }
 
     return (
         <div className="container mt-3">

@@ -6,6 +6,8 @@ export default function WishListTab() {
 
     const wish = useSelector((state) => state.wishlist.wishItems)
 
+    console.log(wish)
+
     return (
 
         <div className='row'>

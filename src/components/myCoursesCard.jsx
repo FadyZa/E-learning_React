@@ -93,10 +93,10 @@ export default function MyCoursesCard({ course, handleCourseToAdd, wishlist, lis
 
                 </ul>
             </div>
-            <img src={course.image} className="card-img-top" alt="coures image" />
+            <img src={`http://localhost:4000/images/${course.url}`} className="card-img-top" alt="coures image" />
             <div className="card-body p-0 py-3 mt-3">
                 <h5 className="card-title text-truncate">{course.title}</h5>
-                <small className="card-text text-muted d-block">{course.visible_instructors[0].title}</small>
+                <small className="card-text text-muted d-block">{course.category}</small>
                 {
                     handleCourseToAdd && <button className="btn btn-udemy text-white mt-3">Start Course</button>
                 }

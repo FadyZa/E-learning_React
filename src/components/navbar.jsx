@@ -37,7 +37,6 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                         <li className="nav-item">
                             <Link className="nav-link text-capitalize fw-medium text-muted" aria-current="page" to="/">Courses</Link>
                         </li>
-
                         {isLoggedIn ? (
                             <li className="nav-item dropdown">
                                 <Link
@@ -50,8 +49,7 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                                     {userRole === 'admin' ? 'Admin' : 'User'}
                                 </Link>
                                 <ul className="dropdown-menu">
-
-                                    {userRole === 'admin' ?
+                                    {userRole === 'admin' ? (
                                         <Fragment>
                                             <li>
                                                 <Link className="dropdown-item" to="/Admin/Products">
@@ -59,10 +57,19 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <hr className="dropdown-divider" />
+                                                <Link className="dropdown-item" to="/Profile">
+                                                    Profile
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    className="dropdown-item"
+                                                    onClick={handleLogoutAndRedirect}>
+                                                    Logout
+                                                </button>
                                             </li>
                                         </Fragment>
-                                        :
+                                    ) : (
                                         <Fragment>
                                             <li>
                                                 <Link className="dropdown-item" to="/learning/joined">
@@ -72,22 +79,22 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                                             <li>
                                                 <hr className="dropdown-divider" />
                                             </li>
+                                            <li>
+                                                <button
+                                                    className="dropdown-item"
+                                                    onClick={handleLogoutAndRedirect}>
+                                                    Logout
+                                                </button>
+                                            </li>
                                         </Fragment>
-                                    }
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={handleLogoutAndRedirect}>
-                                            Logout
-                                        </button>
-                                    </li>
+                                    )}
                                 </ul>
                             </li>
-                        ) : <li className="nav-item">
-                            <Link className="nav-link text-capitalize fw-medium text-muted" to="/RegisterUser">Sign Up</Link>
-                        </li>
-                        }
-
+                        ) : (
+                            <li className="nav-item">
+                                <Link className="nav-link text-capitalize fw-medium text-muted" to="/RegisterUser">Sign Up</Link>
+                            </li>
+                        )}
                         <li className="nav-item">
                             <Link className="nav-link text-capitalize fw-medium text-muted" to="/learning/wishlist">
                                 <FaRegHeart className="fs-3" />

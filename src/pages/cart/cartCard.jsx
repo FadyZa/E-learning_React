@@ -47,18 +47,12 @@ export default function CartCard({ course }) {
         <div className="mb-3 border-0 border-top pt-4 rounded-0" >
             <div className="row g-2">
                 <div className="col-md-4 m-0">
-                    <img src={course.image} className="img-fluid rounded-start" alt="course image" />
+                    <img src={`http://localhost:4000/images/${course.url}`} className="img-fluid rounded-start" alt="course image" />
                 </div>
                 <div className="col-md-8 d-flex justify-content-between gap-4">
                     <div className="card-body p-0">
                         <h5 className="card-title mb-1">{course.title}</h5>
-                        <p className="card-title text-muted">By {course.visible_instructors[0].title}</p>
-                        <p className="fw-bold">{course.rating.toFixed(1)} <span className="text-muted">({course.num_reviews} ratings)</span></p>
-                        <ul className="d-flex gap-3 p-0 list-unstyled">
-                            <li className="text-muted">{course.content_info} |</li>
-                            <li className="text-muted">{course.num_lectures} lectures |</li>
-                            <li className="text-muted">{course.instructional_level}</li>
-                        </ul>
+                        <p className="card-title text-muted">{course.category}</p>
                     </div>
 
                     <div className="links text-capitalize d-flex flex-column gap-2">
