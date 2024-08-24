@@ -7,6 +7,8 @@ import { joinCourse } from "../../redux/actions/joinCourseAction";
 export default function CartCard({ course }) {
 
     const dispatch = useDispatch();
+    const isLoggedin = localStorage.getItem("isLoggedIn");
+    console.log(isLoggedin)
 
 
     function handleRemoveCourse(id) {
@@ -42,7 +44,7 @@ export default function CartCard({ course }) {
     }
 
     return (
-        <div className="card mb-3 border-0 border-top pt-4 rounded-0" >
+        <div className="mb-3 border-0 border-top pt-4 rounded-0" >
             <div className="row g-2">
                 <div className="col-md-4 m-0">
                     <img src={course.image} className="img-fluid rounded-start" alt="course image" />
@@ -61,7 +63,10 @@ export default function CartCard({ course }) {
 
                     <div className="links text-capitalize d-flex flex-column gap-2">
                         <a onClick={() => handleRemoveCourse(course.id)} className="text-decoration-none text-udemy">remove</a>
-                        <a onClick={() => handleJoinCourse(course)} className="text-decoration-none text-udemy">Join course</a>
+                        {
+                            isLoggedin == "true" && <a onClick={() => handleJoinCourse(course)} className="text-decoration-none text-udemy">Join course</a>
+                        }
+
                     </div>
 
                     <div className="prices text-muted d-flex flex-column">

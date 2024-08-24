@@ -25,15 +25,15 @@ export function CartPage() {
 
 
 
-    const handleJoinCourse = (course) => {
-        dispatch(joinCourse(course))
-        dispatch(removeFromCart(course.id));
-        Swal.fire({
-            title: "Good job!",
-            text: "You Joined The Course!",
-            icon: "success"
-        });
-    }
+    // const handleJoinCourse = (course) => {
+    //     dispatch(joinCourse(course))
+    //     dispatch(removeFromCart(course.id));
+    //     Swal.fire({
+    //         title: "Good job!",
+    //         text: "You Joined The Course!",
+    //         icon: "success"
+    //     });
+    // }
 
     return (
         <div className="container mt-3">
@@ -41,7 +41,7 @@ export function CartPage() {
             <h3 className="text-capitalize fw-bold mt-3 mb-0">{cartItems.length} Courses in Cart</h3>
             <div className="row justify-content-between align-items-start">
 
-                <div className="col-8" >
+                <div className="col-12 col-md-8" >
                     {
                         cartItems.length > 0 &&
                         cartItems.map((course) =>
@@ -51,7 +51,7 @@ export function CartPage() {
                 </div>
 
                 {
-                    cartItems.length > 0 && <div className="col-3 border-bottom pb-4">
+                    cartItems.length > 0 && <div className="col-12 col-md-3 border-bottom pb-4">
                         <h4 className="fw-bold text-muted text-capitalize">total:</h4>
                         <h3 className="text-uppercase display-5 fw-bold">${totalPrice}</h3>
                         <Btn content={"checkout"} width={"w-100"} />

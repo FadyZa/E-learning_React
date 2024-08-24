@@ -66,7 +66,7 @@ export default function MyCoursesCard({ course, handleCourseToAdd, wishlist, lis
 
 
     return (
-        <div key={course.id} className="card col-3 border-0 position-relative" >
+        <div key={course.id} className="col-12 col-md-3 border-0 position-relative" >
             <div className="dropdown position-absolute end-0 me-4 mt-2">
                 <button className="btn btn-light px-3 fw-bold" type="button" id="{`dropdownMenuButton${course.id}`}" data-bs-toggle="dropdown" aria-expanded="false">
                     :
@@ -78,7 +78,7 @@ export default function MyCoursesCard({ course, handleCourseToAdd, wishlist, lis
                         <Fragment>
                             <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => handleCourseToAdd(course)}>Create List</a></li>
 
-                            <li><a className="dropdown-item" onClick={() => handleUnjoin(course.id)}>unJoin from this course</a></li>
+                            <li><a className="dropdown-item" onClick={() => handleUnjoin(course.id)}>un-join from this course</a></li>
                         </Fragment>
                     }
 
@@ -91,14 +91,11 @@ export default function MyCoursesCard({ course, handleCourseToAdd, wishlist, lis
                         listName && <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => dispatch(RemoveCourseFromList(listName, course.id))}>Remove From this list</a></li>
                     }
 
-
-                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                    <li><a className="dropdown-item" href="#">Something else here</a></li>
                 </ul>
             </div>
             <img src={course.image} className="card-img-top" alt="coures image" />
-            <div className="card-body p-0 mt-3">
-                <h5 className="card-title">{course.title}</h5>
+            <div className="card-body p-0 py-3 mt-3">
+                <h5 className="card-title text-truncate">{course.title}</h5>
                 <small className="card-text text-muted d-block">{course.visible_instructors[0].title}</small>
                 {
                     handleCourseToAdd && <button className="btn btn-udemy text-white mt-3">Start Course</button>
