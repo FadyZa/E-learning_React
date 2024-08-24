@@ -1,5 +1,5 @@
-import "./App.css"
-import NavBar from './components/navbar'
+import "./App.css";
+import NavBar from './components/navbar';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -22,27 +22,27 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn);
+    localStorage.setItem('isLoggedIn', isLoggedIn ? 'true' : 'false');
   }, [isLoggedIn]);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userRole'); // Remove userRole on logout
   };
 
   return (
     <BrowserRouter>
       <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
-        <Route path='home' element={<HomePage />} />
         <Route path='/' element={<HomePage />} />
+        <Route path='home' element={<HomePage />} />
         <Route path='cart' element={<CartPage />} />
-        <Route path='learning' element={<MylearningPage />} >
+        <Route path='learning' element={<MylearningPage />}>
           <Route path='joined' element={<JoinedTab />} />
           <Route path='wishlist' element={<WishListTab />} />
           <Route path='list' element={<MyList />} />
         </Route>
-
         <Route path='/RegisterUser' element={<RegisterUser />} />
         <Route path='/LoginAdmin' element={<LoginAdmin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Admin/Products' element={<Productlist />} />
@@ -50,9 +50,7 @@ function App() {
         <Route path='/Admin/Products/Edit/:id' element={<EditProduct />} />
       </Routes>
     </BrowserRouter>
-
-
-  )
+  );
 }
 
-export default App
+export default App;

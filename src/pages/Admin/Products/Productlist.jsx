@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 
 function Productlist() {
     const [products, setProducts] = useState([]);
+    const [totalProducts, setTotalProducts] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(10); // Adjust items per page here
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-    function getProducts() {
-        fetch("http://localhost:4000/products?_sort=id&_order=desc") // asc
+    const getProducts = (page = 1) => {
+        fetch(`http://localhost:4000/products?_sort=id&_order=asc&_page=${page}&_limit=${productsPerPage}`)
             .then(res => {
                 if (res.ok) {
                     return res.json();
@@ -17,13 +20,19 @@ function Productlist() {
             })
             .then(data => {
                 setProducts(data);
+                // Fetch total count for pagination
+                fetch("http://localhost:4000/products")
+                    .then(res => res.json())
+                    .then(allProducts => setTotalProducts(allProducts.length));
             })
             .catch(err => {
                 alert("Unable to get the data");
             });
-    }
+    };
 
-    useEffect(getProducts, []);
+    useEffect(() => {
+        getProducts(currentPage);
+    }, [currentPage]);
 
     function handleDeleteClick(id) {
         setSelectedProductId(id);
@@ -38,13 +47,15 @@ function Productlist() {
                 if (!response.ok) {
                     throw new Error();
                 }
-                getProducts();
+                getProducts(currentPage);
                 setShowModal(false);
             })
             .catch(error => {
                 alert("Unable to delete the product");
             });
     }
+
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
 
     return (
         <div className="container my-4">
@@ -54,11 +65,8 @@ function Productlist() {
                     <Link className="btn btn-primary me-1" to="/Admin/Products/Create" role="button">
                         Create Product
                     </Link>
-                    <button type="button" className="btn btn-outline-primary" onClick={getProducts}>
-                        Refresh
-                    </button>
+                    <button className="btn btn-outline-primary" onClick={() => getProducts(currentPage)}>Refresh</button>
                 </div>
-                <div className="col"></div>
             </div>
 
             <table className="table">
@@ -74,8 +82,8 @@ function Productlist() {
                 </thead>
 
                 <tbody>
-                    {products.map((product, index) => (
-                        <tr key={index}>
+                    {products.map((product) => (
+                        <tr key={product.id}>
                             <td>{product.id}</td>
                             <td>{product.title}</td>
                             <td>
@@ -99,6 +107,23 @@ function Productlist() {
                     ))}
                 </tbody>
             </table>
+
+            <nav aria-label="Page navigation">
+                <ul className="pagination d-flex justify-content-center">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                        <button className="page-link" onClick={() => setCurrentPage(currentPage - 1)}>&laquo; Previous</button>
+                    </li>
+                    {[...Array(totalPages)].map((_, index) => (
+                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                            <button className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
+                        </li>
+                    ))}
+                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                        <button className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>Next &raquo;</button>
+                    </li>
+                </ul>
+            </nav>
+
 
             {/* Bootstrap Modal */}
             <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

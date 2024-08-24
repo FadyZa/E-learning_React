@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginAdmin = ({ setIsLoggedIn }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,6 +33,8 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userRole', 'user');
         navigate("/Home");
+        window.location.reload(); // Refresh the page
+
         return;
       }
 
@@ -47,6 +49,7 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userRole', 'admin');
         navigate("/Admin/Products");
+
       } else {
         setLoginError("Invalid email or password.");
       }
@@ -66,7 +69,7 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
       }}
     >
       {({ isSubmitting }) => (
-        <div className="d-flex justify-content-around align-items-center flex-wrap w-100 h-75">
+        <div className="d-flex justify-content-center align-items-center flex-wrap w-100 h-100">
           <Form className="login-container">
             <h1>Login</h1>
             <hr />
@@ -96,7 +99,7 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
             </button>
             <div className="mt-3">
               <p>
-                Dont have an account? <Link to="/RegisterUser">Register here</Link>
+                Dont have an account? <a href="/RegisterUser">Register here</a>
               </p>
             </div>
           </Form>

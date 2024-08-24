@@ -6,10 +6,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function NavBar({ isLoggedIn, handleLogout }) {
-
-
-    console.log(isLoggedIn)
-    const cartItemsLenght = useSelector((state) => state.cart.cartItems.length);
+    const cartItemsLength = useSelector((state) => state.cart.cartItems.length);
 
     const navigate = useNavigate();
     const userRole = localStorage.getItem('userRole'); // Retrieve user role from localStorage
@@ -24,7 +21,7 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
-                    <img src="../../public/logo-udemy.png" />
+                    <img src="../../public/logo-udemy.png" alt="Logo" />
                 </Link>
                 <form className="d-flex w-50" role="search">
                     <input className="form-control me-2 p-3 border rounded-5" type="search" placeholder="Search" aria-label="Search" />
@@ -34,14 +31,12 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav w-100 d-flex justify-content-around">
-
                         <li className="nav-item">
                             <Link className="nav-link text-capitalize fw-medium text-muted active" aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link text-capitalize fw-medium text-muted" aria-current="page" to="/">Courses</Link>
                         </li>
-
                         {isLoggedIn ? (
                             <li className="nav-item dropdown">
                                 <Link
@@ -54,7 +49,7 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                                     {userRole === 'admin' ? 'Admin' : 'User'}
                                 </Link>
                                 <ul className="dropdown-menu">
-                                    {userRole === 'admin' ?
+                                    {userRole === 'admin' ? (
                                         <Fragment>
                                             <li>
                                                 <Link className="dropdown-item" to="/Admin/Products">
@@ -66,8 +61,15 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                                                     Profile
                                                 </Link>
                                             </li>
+                                            <li>
+                                                <button
+                                                    className="dropdown-item"
+                                                    onClick={handleLogoutAndRedirect}>
+                                                    Logout
+                                                </button>
+                                            </li>
                                         </Fragment>
-                                        :
+                                    ) : (
                                         <Fragment>
                                             <li>
                                                 <Link className="dropdown-item" to="/learning/joined">
@@ -85,14 +87,14 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                                                 </button>
                                             </li>
                                         </Fragment>
-                                    }
+                                    )}
                                 </ul>
                             </li>
-                        ) : <li className="nav-item">
-                            <Link className="nav-link text-capitalize fw-medium text-muted" to="/RegisterUser">Sign Up</Link>
-                        </li>
-                        }
-
+                        ) : (
+                            <li className="nav-item">
+                                <Link className="nav-link text-capitalize fw-medium text-muted" to="/RegisterUser">Sign Up</Link>
+                            </li>
+                        )}
                         <li className="nav-item">
                             <Link className="nav-link text-capitalize fw-medium text-muted" to="/learning/wishlist">
                                 <FaRegHeart className="fs-3" />
@@ -100,16 +102,13 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                         </li>
                         <li className="nav-item position-relative">
                             <Link className="nav-link text-capitalize fw-medium text-muted" to="/cart">
-                                <span style={{ width: "20px", height: "20px" }} className="position-absolute bg-udemy rounded-circle end-0 top-0 text-white d-flex justify-content-center align-items-center p-2">{cartItemsLenght}</span>
+                                <span style={{ width: "20px", height: "20px" }} className="position-absolute bg-udemy rounded-circle end-0 top-0 text-white d-flex justify-content-center align-items-center p-2">{cartItemsLength}</span>
                                 <IoCartOutline className="fs-3" />
                             </Link>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
         </nav>
-
-    )
+    );
 }

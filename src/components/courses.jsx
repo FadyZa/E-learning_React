@@ -13,7 +13,7 @@ export default function Courses() {
     const [products, setProducst] = useState([]);
 
     useEffect(() => {
-        axios.get("../dataset_udemy-courses.json").then((res) => {
+        axios.get("http://localhost:4000/products").then((res) => {
             setProducst(res.data);
         })
     }, [])
@@ -52,11 +52,11 @@ export default function Courses() {
             <div className="row gap-3 justify-content-center align-items-center">
                 {products.map((prod) =>
                     <div key={prod.id} className="card" style={{ width: "18rem" }}>
-                        <img src={prod.image} className="card-img-top" alt="..." />
+                        <img src={"http://localhost:4000/images/" + prod.url} className="card-img-top" alt="..." />
                         <div className="card-body">
                             <h5 className="card-title">{prod.title}</h5>
-                            <h6 className="card-title text-secondary">{prod.visible_instructors.title}</h6>
-                            <p className="card-text">{prod.rice_string}</p>
+                            {/* <h6 className="card-title text-secondary">{prod.visible_instructors.title}</h6> */}
+                            {/*  <p className="card-text">{prod.rice_string}</p> */}
                             <div>
 
                                 {
