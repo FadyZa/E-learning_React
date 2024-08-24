@@ -25,6 +25,8 @@ import { removeFromWishlist } from "../redux/actions/removeFromWishlistAction";
 
 export default function ({ course }) {
 
+  const isLoggedin = localStorage.getItem("isLoggedIn");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -102,11 +104,11 @@ export default function ({ course }) {
                     </button>
 
                     {
-                      wishCourses.find((item) => item.id == course.id) ? <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => dispatch(removeFromWishlist(course.id))}>
+                      isLoggedin == "true" && (wishCourses.find((item) => item.id == course.id) ? <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => dispatch(removeFromWishlist(course.id))}>
                         <FaHeart className="fs-3" />
                       </button> : <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => handleWishList(course)}>
                         <FaRegHeart className="fs-3" />
-                      </button>
+                      </button>)
                     }
                   </Fragment>
             }

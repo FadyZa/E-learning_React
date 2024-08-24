@@ -71,31 +71,4 @@ export function CartPage() {
         </div >
     )
 
-    //     return (
-    //         <div className="container">
-    //             <div className="row gap-3 justify-content-center align-items-center">
-
-    //                 <h2>{totalPrice.toFixed(2)}</h2>
-    //                 {
-    //                     cartItems.length > 0 ?
-    //                         cartItems.map((course) =>
-    //                             <div key={course.id} className="card" style={{ width: "18rem" }}>
-    //                                 <img src={course.image} className="card-img-top" alt="..." />
-    //                                 <div className="card-body">
-    //                                     <span className="badge text-bg-secondary">{course.quantity}</span>
-    //                                     <h5 className="card-title">{course.title}</h5>
-    //                                     <h6 className="card-title text-secondary">{course.visible_instructors.title}</h6>
-    //                                     <p className="card-text">{course.price_detail.price_string}</p>
-    //                                     <a className="btn btn-danger me-2" onClick={() => handleRemoveCourse(course.id)}>remove from Cart</a>
-    //                                 </div>
-    //                                 <a className="btn btn-success me-2" onClick={() => handleJoinCourse(course)}>Join</a>
-    //                             </div >
-    //                         )
-    //                         : <p>No Products</p>
-    //                 }
-
-
-    //             </div>
-    //         </div>
-    //     )
 }

@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function NavBar({ isLoggedIn, handleLogout }) {
   const cartItemsLength = useSelector((state) => state.cart.cartItems.length);
+  const isLoggedin = localStorage.getItem("isLoggedIn");
 
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole"); // Retrieve user role from localStorage
@@ -128,12 +129,14 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
               </li>
             )}
             <li className="nav-item">
-              <Link
+
+              {isLoggedin == "true" && <Link
                 className="nav-link text-capitalize fw-medium text-muted"
                 to="/learning/wishlist"
               >
                 <FaRegHeart className="fs-3" />
-              </Link>
+              </Link>}
+
             </li>
             <li className="nav-item position-relative">
               <Link

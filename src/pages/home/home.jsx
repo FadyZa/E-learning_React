@@ -26,11 +26,12 @@ export function HomePage() {
   }, [products]);
 
   const user = localStorage.getItem("user");
+  const isLoggedin = localStorage.getItem("isLoggedIn");
   const userData = JSON.parse(user);
 
   return (
     <Fragment>
-      {userData && (
+      {isLoggedin == "true" && (
         <div className="container my-2">
           <h2 className="fw-bold py-3">Welocme Back, {userData.name} </h2>
         </div>
