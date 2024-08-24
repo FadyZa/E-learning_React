@@ -15,7 +15,7 @@ export default function Courses() {
     const [products, setProducst] = useState([]);
 
     useEffect(() => {
-        axios.get("../dataset_udemy-courses.json").then((res) => {
+        axios.get("http://localhost:4000/products").then((res) => {
             setProducst(res.data);
         })
     }, [])
@@ -58,46 +58,46 @@ export default function Courses() {
 
 
     return (
-        <div className="row gap-3 justify-content-center align-items-center">
-            {products.map((prod) =>
+        <div className="container my-2">
+            <div className="row gap-3 justify-content-center align-items-center">
+                {products.map((prod) =>
+                    <div key={prod.id} className="card" style={{ width: "18rem" }}>
+                        <img src={"http://localhost:4000/images/" + prod.url} className="card-img-top" alt="..." />
+                        <div className="card-body">
+                            <h5 className="card-title">{prod.title}</h5>
+                            {/* <h6 className="card-title text-secondary">{prod.visible_instructors.title}</h6> */}
+                            {/*  <p className="card-text">{prod.rice_string}</p> */}
+                            <div>
 
-                <div key={prod.id} className="card" style={{ width: "18rem" }}>
-                    <img src={prod.image} className="card-img-top" alt="..." />
-                    <div className="card-body">
-                        <h5 className="card-title">{prod.title}</h5>
-                        <h6 className="card-title text-secondary">{prod.visible_instructors.title}</h6>
-                        <p className="card-text">{prod.rice_string}</p>
-                        <div>
-
-                            {
-                                cartItems.find((item) => item.id == prod.id) ?
-                                    <Link to="/cart" className="btn btn-success me-2">
-                                        Go to Cart
-                                    </Link> :
-                                    joinedCourses.find((item) => item.id == prod.id) ?
-                                        <Link to="/learning" className="btn text-white btn-udemy me-2">
-                                            Go to My Learning
+                                {
+                                    cartItems.find((item) => item.id == prod.id) ?
+                                        <Link to="/cart" className="btn btn-success me-2">
+                                            Go to Cart
                                         </Link> :
-                                        <Fragment>
-                                            <button className="btn btn-primary me-2" onClick={() => handleCart(prod)}>
-                                                Add to Cart
-                                            </button>
-
-                                            {
-                                                wishCourses.find((course) => course.id == prod.id) ? <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => dispatch(removeFromWishlist(prod.id))}>
-                                                    <FaHeart className="fs-3" />
-                                                </button> : <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => handleWishList(prod)}>
-                                                    <FaRegHeart className="fs-3" />
+                                        joinedCourses.find((item) => item.id == prod.id) ?
+                                            <Link to="/learning" className="btn text-white btn-udemy me-2">
+                                                Go to My Learning
+                                            </Link> :
+                                            <Fragment>
+                                                <button className="btn btn-primary me-2" onClick={() => handleCart(prod)}>
+                                                    Add to Cart
                                                 </button>
-                                            }
-                                        </Fragment>
-                            }
 
+                                                {
+                                                    wishCourses.find((course) => course.id == prod.id) ? <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => dispatch(removeFromWishlist(prod.id))}>
+                                                        <FaHeart className="fs-3" />
+                                                    </button> : <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => handleWishList(prod)}>
+                                                        <FaRegHeart className="fs-3" />
+                                                    </button>
+                                                }
+                                            </Fragment>
+                                }
+
+                            </div>
                         </div>
-                    </div>
-                </div >
+                    </div >
 
-            )}
-        </div>
-    );
+                )}
+            </div>
+            );
 }
