@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./reg.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
@@ -215,7 +215,7 @@ const RegisterUser = () => {
         </button>
         <div className="mt-3">
           <p>
-            Already have an account? <a href="/LoginAdmin">Login here</a>
+            Already have an account? <Link to="/LoginAdmin">Login here</Link>
           </p>
         </div>
       </form>
