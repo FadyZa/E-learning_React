@@ -61,6 +61,7 @@ export default function ({ course }) {
       <Card
         color="dark"
         className="product-Card"
+        style={{ height: "fit-content" }}
         sx={{
           // Width: 345,
           Width: "370px",
@@ -83,34 +84,35 @@ export default function ({ course }) {
         <Link to={`/details/${course.id}`} className="text-decoration-none">
           <CardMedia sx={{ height: 140 }} image={"http://localhost:4000/images/" + course.url} title="green iguana" />
         </Link>
-        <CardContent>
+        <CardContent className="pb-2">
           <Typography gutterBottom variant="h9" component="div">
             {course.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary" className="d-flex align-items-center">
+          <Typography variant="body2" color="text.secondary">
 
             {
               cartItems.find((item) => item.id == course.id) ?
-                <Link to="/cart" className="btn btn-success me-2">
+                <Link to="/cart" className="btn w-100 btn-success me-2">
                   Go to Cart
                 </Link> :
                 joinedCourses.find((item) => item.id == course.id) ?
-                  <Link to="/learning/joined" className="btn text-white btn-udemy me-2">
+                  <Link to="/learning/joined" className="btn w-100 text-white btn-udemy me-2">
                     Go to My Learning
                   </Link> :
                   <Fragment>
-                    <button className="btn btn-primary me-2" onClick={() => handleCart(course)}>
+                    <button className="btn w-100 btn-primary me-2" onClick={() => handleCart(course)}>
                       Add to Cart
                     </button>
 
-                    {
-                      isLoggedin == "true" && (wishCourses.find((item) => item.id == course.id) ? <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => dispatch(removeFromWishlist(course.id))}>
-                        <FaHeart className="fs-3" />
-                      </button> : <button style={{ width: "50px", height: "50px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle" onClick={() => handleWishList(course)}>
-                        <FaRegHeart className="fs-3" />
-                      </button>)
-                    }
                   </Fragment>
+            }
+
+            {
+              isLoggedin == "true" && (wishCourses.find((item) => item.id == course.id) ? <button style={{ width: "35px", height: "35px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle ms-auto my-2 border-danger-subtle" onClick={() => dispatch(removeFromWishlist(course.id))}>
+                <FaHeart className="fs-3 text-danger" />
+              </button> : <button style={{ width: "35px", height: "35px", backgroundColor: "transparent" }} className="d-flex justify-content-center align-items-center rounded-circle ms-auto my-2" onClick={() => handleWishList(course)}>
+                <FaRegHeart className="fs-3" />
+              </button>)
             }
 
           </Typography>

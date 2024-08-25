@@ -1,7 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Fragment, useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { htmlToText } from "html-to-text";
+import { useDispatch, useSelector } from "react-redux";
+import { joinCourse } from "../../redux/actions/joinCourseAction";
+import { removeFromCart } from "../../redux/actions/RemoveFromCart";
+import Swal from "sweetalert2";
+import { addToCart } from "../../redux/actions/AddToCartAction";
+import { removeFromWishlist } from "../../redux/actions/removeFromWishlistAction";
 
 export default function CourseDetails() {
   const [details, setDetails] = useState({});
@@ -23,6 +29,41 @@ export default function CourseDetails() {
 
   const htmlContent = details.description || "";
   const textContent = htmlToText(htmlContent, { wordwrap: false });
+
+
+  const dispatch = useDispatch();
+  const joined = useSelector((state) => state.joined.mylearning);
+  const cart = useSelector((state) => state.cart.cartItems);
+
+  const handleJoinCourse = (course) => {
+    dispatch(joinCourse(course))
+    dispatch(removeFromCart(course.id));
+    dispatch(removeFromWishlist(course.id));
+    Swal.fire({
+      title: "Good job!",
+      text: "You Joined The Course!",
+      icon: "success",
+      timer: 1000
+    });
+  }
+
+  function handleCart(product) {
+    dispatch(addToCart(product));
+    dispatch(removeFromWishlist(product.id));
+    Swal.fire({
+      title: "Course Added To The Cart!",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#6610F2",
+      cancelButtonColor: "#0B5ED7",
+      cancelButtonText: "Continue Shopping",
+      confirmButtonText: "Go To Cart"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Navigate('/cart');
+      }
+    });
+  }
 
   return (
     <>
@@ -69,18 +110,42 @@ export default function CourseDetails() {
               <h1 className="text-dark p-3">
                 $ {details.price || "Price not available"}
               </h1>
-              <button
-                className="btn text-white fw-bold btn-lg w-75 ms-2 "
-                style={{ backgroundColor: "#a435f0 ", borderRadius: "0" }}
-              >
-                Add To Cart
-              </button>
-              <button
-                className="btn text-dark border border-1 border-dark fw-bold my-2 btn-lg w-75 ms-2 "
-                style={{ backgroundColor: "white", borderRadius: "0" }}
-              >
-                Join Now
-              </button>
+
+              {
+                joined.find((course) => course.id == details.id) ? <button
+                  className="btn disabled text-dark border border-1 border-dark fw-bold my-2 btn-lg w-75 ms-2 "
+                  style={{ backgroundColor: "white", borderRadius: "0" }}
+
+                >
+                  Already Joined
+                </button> :
+                  <Fragment>
+                    {
+
+                      cart.find((course) => course.id == details.id) ? <button
+                        className="btn text-white fw-bold btn-lg w-75 ms-2 disabled"
+                        style={{ backgroundColor: "#a435f0 ", borderRadius: "0" }}
+                      >
+                        Already added !
+                      </button> : <button
+                        className="btn text-white fw-bold btn-lg w-75 ms-2 "
+                        style={{ backgroundColor: "#a435f0 ", borderRadius: "0" }}
+                        onClick={() => handleCart(details)}
+                      >
+                        Add To Cart
+                      </button>
+                    }
+
+                    <button
+                      className="btn text-dark border border-1 border-dark fw-bold my-2 btn-lg w-75 ms-2 "
+                      style={{ backgroundColor: "white", borderRadius: "0" }}
+                      onClick={() => handleJoinCourse(details)}
+                    >
+                      Join Now
+                    </button>
+                  </Fragment>
+              }
+
             </div>
           </div>
         </div>

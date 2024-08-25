@@ -8,6 +8,7 @@ import RemoveCourseFromList from "../redux/actions/removeCourseFromList";
 import { Fragment } from "react";
 import { unjoin } from "../redux/actions/unjoinCourseAction";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function MyCoursesCard({ course, handleCourseToAdd, wishlist, listName }) {
 
@@ -93,9 +94,13 @@ export default function MyCoursesCard({ course, handleCourseToAdd, wishlist, lis
 
                 </ul>
             </div>
-            <img src={`http://localhost:4000/images/${course.url}`} className="card-img-top" alt="coures image" />
+            <Link to={`/details/${course.id}`}>
+                <img src={`http://localhost:4000/images/${course.url}`} className="card-img-top" alt="coures image" />
+            </Link>
             <div className="card-body p-0 py-3 mt-3">
-                <h5 className="card-title text-truncate">{course.title}</h5>
+                <Link className="text-dark text-decoration-none" to={`/details/${course.id}`}>
+                    <h5 className="card-title text-truncate">{course.title}</h5>
+                </Link>
                 <small className="card-text text-muted d-block">{course.category}</small>
                 {
                     handleCourseToAdd && <button className="btn btn-udemy text-white mt-3">Start Course</button>

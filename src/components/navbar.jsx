@@ -19,7 +19,7 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img src="../../public/logo-udemy.png" alt="Logo" />
@@ -119,14 +119,27 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                 </ul>
               </li>
             ) : (
-              <li className="nav-item">
-                <Link
-                  className="nav-link text-capitalize fw-medium text-muted"
-                  to="/RegisterUser"
-                >
-                  Sign Up
-                </Link>
-              </li>
+              <Fragment>
+
+                <li className="nav-item">
+                  <Link
+                    className="nav-link text-capitalize fw-medium text-muted"
+                    to="/RegisterUser"
+                  >
+                    Sign Up
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    className="nav-link text-capitalize fw-medium text-muted"
+                    to="/LoginAdmin"
+                  >
+                    Sign In
+                  </Link>
+                </li>
+              </Fragment>
+
             )}
             <li className="nav-item">
 

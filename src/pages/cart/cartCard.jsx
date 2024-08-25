@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { removeFromCart } from "../../redux/actions/RemoveFromCart";
 import { joinCourse } from "../../redux/actions/joinCourseAction";
+import { Link } from "react-router-dom";
 
 export default function CartCard({ course }) {
 
@@ -46,12 +47,17 @@ export default function CartCard({ course }) {
     return (
         <div className="mb-3 border-0 border-top pt-4 rounded-0" >
             <div className="row g-2">
-                <div className="col-md-4 m-0">
-                    <img src={`http://localhost:4000/images/${course.url}`} className="img-fluid rounded-start" alt="course image" />
+                <div className="col-md-4 m-0 text-center">
+                    <Link to={`/details/${course.id}`}>
+                        <img src={`http://localhost:4000/images/${course.url}`} className="img-fluid rounded-start" alt="course image" />
+                    </Link>
                 </div>
                 <div className="col-md-8 d-flex justify-content-between gap-4">
                     <div className="card-body p-0">
-                        <h5 className="card-title mb-1">{course.title}</h5>
+                        <Link className="text-dark text-decoration-none" to={`/details/${course.id}`}>
+                            <h5 className="card-title mb-1">{course.title}</h5>
+                        </Link>
+
                         <p className="card-title text-muted">{course.category}</p>
                     </div>
 

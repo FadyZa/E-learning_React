@@ -117,7 +117,10 @@ export function HomePage() {
         <Topics />
       </div>
 
-      <div className="container mx-auto row  my-2 ">
+      <div className="container mx-auto row my-2 ">
+        <hr />
+        <h3 className="text-capitalize fw-bold my-2">Our popular Courses</h3>
+
         {products.map((coures) => (
           <div
             className="col-lg-3 mb-4 col-md-4 col-sm-6 col-xsm-12 mt-3"

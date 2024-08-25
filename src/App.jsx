@@ -17,6 +17,7 @@ import EditProduct from "./pages/Admin/Products/EditProduct.jsx";
 import Course from "./pages/courses/course.jsx";
 import { useEffect, useState } from "react";
 import CouresDetalis from "./pages/details/details.jsx";
+import Footer from "./components/footer.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -56,6 +57,7 @@ function App() {
         <Route path="/Admin/Products/Create" element={<CreateProduct />} />
         <Route path="/Admin/Products/Edit/:id" element={<EditProduct />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
