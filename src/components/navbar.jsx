@@ -79,7 +79,7 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                     <Fragment>
                       <li>
                         <Link className="dropdown-item" to="/Admin/Products">
-                          Products
+                          Dashboard Courses
                         </Link>
                       </li>
                       <li>

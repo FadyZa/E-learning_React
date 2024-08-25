@@ -32,6 +32,7 @@ function Productlist() {
 
     useEffect(() => {
         getProducts(currentPage);
+
     }, [currentPage]);
 
     function handleDeleteClick(id) {
@@ -59,13 +60,13 @@ function Productlist() {
 
     return (
         <div className="container my-4">
-            <h2 className="text-center mb-4">Dashboard Products</h2>
+            <h2 className="text-center mb-4">Dashboard Courses</h2>
             <div className="row mb-3">
                 <div className="col">
                     <Link className="btn btn-primary me-1" to="/Admin/Products/Create" role="button">
                         Create Product
                     </Link>
-                    <button className="btn btn-outline-primary" onClick={() => getProducts(currentPage)}>Refresh</button>
+                    <a className="btn btn-outline-primary" href="/Admin/Products" onClick={() => getProducts(currentPage)}>Refresh</a>
                 </div>
             </div>
 

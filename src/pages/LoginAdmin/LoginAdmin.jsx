@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import './LoginAdmin.css';
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const LoginAdmin = ({ setIsLoggedIn }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // Add state for success message
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
@@ -32,9 +32,8 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
         setIsLoggedIn(true);
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userRole', 'user');
-        navigate("/Home");
-        window.location.reload(); // Refresh the page
-
+        setSuccessMessage("Login completed successfully"); // Set success message
+        setTimeout(() => navigate("/Home"), 1500); // Redirect after 1.5 seconds to show the message
         return;
       }
 
@@ -45,10 +44,12 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
       const users = await response.json();
 
       if (users.length > 0) {
+
         setIsLoggedIn(true);
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userRole', 'admin');
-        navigate("/Admin/Products");
+        setSuccessMessage("Login completed successfully"); // Set success message
+        setTimeout(() => navigate("/Admin/Products"), 1500); // Redirect after 1.5 seconds to show the message
 
       } else {
         setLoginError("Invalid email or password.");
@@ -69,7 +70,13 @@ const LoginAdmin = ({ setIsLoggedIn }) => {
       }}
     >
       {({ isSubmitting }) => (
-        <div className="d-flex justify-content-center align-items-center flex-wrap w-100 h-100">
+        <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+          {successMessage && (
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+              {successMessage}
+              <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          )}
           <Form className="login-container">
             <h1>Login</h1>
             <hr />
