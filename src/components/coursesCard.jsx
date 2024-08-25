@@ -100,7 +100,10 @@ export default function ({ course }) {
                     Go to My Learning
                   </Link> :
                   <Fragment>
-                    <button className="btn w-100 btn-primary me-2" onClick={() => handleCart(course)}>
+                    <button className="btn w-100 btn-primary me-2" onClick={() => {
+                      handleCart(course)
+                      dispatch(removeFromWishlist(course.id))
+                    }}>
                       Add to Cart
                     </button>
 
