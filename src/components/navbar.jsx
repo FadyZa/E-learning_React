@@ -83,11 +83,6 @@ export default function NavBar({ isLoggedIn, handleLogout }) {
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/Profile">
-                          Profile
-                        </Link>
-                      </li>
-                      <li>
                         <button
                           className="dropdown-item"
                           onClick={handleLogoutAndRedirect}
